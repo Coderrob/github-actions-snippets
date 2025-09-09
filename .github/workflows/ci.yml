@@ -12,11 +12,9 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        id: checkout-repository
         uses: actions/checkout@v4
 
       - name: Validate Snippet JSON
-        id: validate-snippet-json
         run: |
           if ! jq empty .vscode/github-actions.code-snippets; then
             echo "Invalid JSON in snippets file"
