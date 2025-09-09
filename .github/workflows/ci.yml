@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Validate Snippet JSON
+        run: |
+          if ! jq empty .vscode/github-actions.code-snippets; then
+            echo "Invalid JSON in snippets file"
+            exit 1
+          fi

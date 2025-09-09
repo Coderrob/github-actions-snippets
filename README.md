@@ -1,139 +1,100 @@
 # GitHub Actions VS Code Snippets
 
-This repository provides a collection of **Visual Studio Code snippets** for **GitHub Actions** and **GitHub Actions Workflows**. These snippets simplify the process of writing, editing, and managing **GitHub Actions YAML files**, ensuring correctness and completeness with predefined property selections.
+A curated collection of Visual Studio Code snippets that speed up writing GitHub Actions and workflow YAML files. These snippets provide ready-made templates, property options, and placeholders so you can create valid, consistent CI/CD configurations quickly.
 
-## 🚀 Features
+## Contents
 
-- **Predefined GitHub Action Templates** for Composite, Docker, and Node.js Actions.
-- **Workflow Boilerplate** to quickly set up CI/CD pipelines.
-- **Environment Variables** to insert commonly used GitHub Actions context values.
-- **Comprehensive Properties** for branding, inputs, outputs, and steps.
-- **Auto-completion and Selection Options** for colors, icons, and OS environments.
-- **Error-Free YAML Formatting** for valid and structured configurations.
+- `./.vscode/github-actions.code-snippets` — VS Code snippet definitions.
 
-## 📌 Installation
+## Quick start
 
-1. Create a .vscode folder in your project root (if it doesn’t exist).
-1. Inside .vscode, create or move your github-actions.code-snippets file.
-1. Restart VS Code (Ctrl + Shift + P → Reload Window).
-1. Open a .yml or .yaml file and type the snippet prefix (e.g., gha-workflow).
-1. Manually invoke the snippet picker using:
+1. Copy (or symlink) `./.vscode/github-actions.code-snippets` into your project's `.vscode/` folder.
+2. Reload VS Code (Command Palette → "Developer: Reload Window").
+3. Open a `.yml` or `.yaml` file and start typing a snippet prefix (for example `gha-`) or press `Ctrl+Space` to view completions.
 
-   Windows/Linux: `Ctrl + Space`  
-   Mac: `Cmd + Space`
+   Notes
+   - Snippets are scoped for YAML. Ensure the current file language in VS Code is set to YAML if suggestions don't appear.
+   - Recommended extensions (see `.vscode/extensions.json`): `ms-vscode.vscode-github-actions`, `redhat.vscode-yaml`.
 
-   The snippets should now appear! 🎉
+## Common snippets (overview)
 
-## 🔥 Available Snippets
+Use the snippet `prefix` in a YAML file to insert each template and tab through placeholders.
 
-### 1️. GitHub Actions - Branding
+- `gha-workflow` — Workflow boilerplate with push/pull_request triggers and a simple build job.
+- `gha-workflow-job` — Job skeleton with `runs-on` and common steps.
+- `gha-workflow-job-step-run` — `run` step with optional `if`, `env`, `shell`, and `working-directory` placeholders.
+- `gha-workflow-job-step-uses` — `uses` step for running an action.
+- `gha-composite-action` — Composite Action template (inputs, outputs, steps).
+- `gha-composite-action-step-run` — `run` step for composite actions.
+- `gha-composite-action-step-uses` — `uses` step for composite actions.
+- `gha-docker-action` — Docker-based Action template.
+- `gha-node-action` — Node.js Action template (Node 20.x recommended).
+- `gha-action-branding` — Insert `branding:` fields (color, icon) for action metadata.
+- `gha-action-step-env` — Insert commonly used GitHub Action environment variables for a step.
 
-- **Prefix:** `gha-action-branding`
-- **Description:** Inserts branding details for a custom GitHub Action.
-- **Properties:** `color`, `icon` (predefined values for easy selection).
+For a complete list, open `./.vscode/github-actions.code-snippets` and search for `"prefix":` entries.
 
-### 2️. GitHub Actions - Common Environment Variables
+## Example — create a CI workflow
 
-- **Prefix:** `gha-action-step-env`
-- **Description:** Inserts commonly used GitHub Actions step environment variables.
-- **Includes:** `GITHUB_ACTOR`, `GITHUB_REPOSITORY`, `GITHUB_REF`, `GITHUB_SHA`, `GITHUB_WORKSPACE`, `RUNNER_OS`, `RUNNER_ARCH`.
+1. Create `.github/workflows/ci.yml`.
+2. In VS Code, open it, type `gha-workflow`, accept the snippet, then fill placeholders.
 
-### 3️. GitHub Actions - Composite Action
+   Snippet expansion example (illustrative):
 
-- **Prefix:** `gha-composite-action`
-- **Description:** Creates a Composite GitHub Action with configurable inputs, outputs, and steps.
+   ```yaml
+   name: CI
 
-### 4️. GitHub Actions - Composite Action 'run' Step
+   on:
+     push:
+     pull_request:
 
-- **Prefix:** `gha-composite-action-step-run`
-- **Description:** Inserts a 'run' step for Composite Actions with optional **`if`, `env`, `shell`, and `working-directory`** properties.
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Checkout
+           uses: actions/checkout@v4
 
-### 5️. GitHub Actions - Composite Action 'uses' Step
+         - name: Setup Node.js
+           uses: actions/setup-node@v4
+           with:
+             node-version: '20'
 
-- **Prefix:** `gha-composite-action-step-uses`
-- **Description:** Inserts a 'uses' step for referencing other actions.
+         - name: Install
+           run: npm install
 
-### 6️. GitHub Actions - Docker Action
+         - name: Test
+           run: npm test
+   ```
 
-- **Prefix:** `gha-docker-action`
-- **Description:** Provides a template for creating a **Docker-based GitHub Action**.
+## Validate the snippets JSON
 
-### 7️. GitHub Actions - Node.js Action
+The repository includes a GitHub workflow that validates the snippets JSON. Locally you can validate the file with `jq`:
 
-- **Prefix:** `gha-node-action`
-- **Description:** Provides a template for creating a **Node.js 20.x GitHub Action**.
-
-### 8️. GitHub Actions - Workflow Boilerplate
-
-- **Prefix:** `gha-workflow`
-- **Description:** Inserts a **GitHub Actions Workflow** template with `push` and `pull_request` triggers.
-- **Includes:** `checkout`, `setup-node`, `install dependencies`, and `run tests` steps.
-
-### 9️. GitHub Actions - Workflow Job
-
-- **Prefix:** `gha-workflow-job`
-- **Description:** Inserts a job structure with `runs-on` options and a **job status reference**.
-
-### 10. GitHub Actions - Workflow Job 'run' Step
-
-- **Prefix:** `gha-workflow-job-step-run`
-- **Description:** Inserts a 'run' step for Composite Actions with optional **`if`, `env`, `shell`, and `working-directory`** properties.
-
-### 11. GitHub Actions - Workflow Job 'uses' Step
-
-- **Prefix:** `gha-workflow-job-step-uses`
-- **Description:** Inserts a 'uses' step for referencing other actions.
-
-## 🛠 How to Use
-
-1. Open a `.yml` file inside the `.github/workflows/` directory.
-2. Type the **prefix** (e.g., `gha-`) and select the snippet from the suggestions.
-3. Use the placeholders and tab through the fields to customize.
-4. Save the file and push it to GitHub to trigger the workflow.
-
-## 📖 Example Usage
-
-**Using the `gha-workflow` snippet:**
-
-```yaml
-name: GitHub Workflow
-
-on:
-  - push
-  - pull_request
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        id: checkout-repository
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
-        id: setup-node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Dependencies
-        id: install-dependencies
-        run: npm install
-
-      - name: Run Tests
-        id: run-tests
-        run: npm test
-
+```bash
+jq empty .vscode/github-actions.code-snippets
 ```
 
-## 🔍 Contributing
+A non-zero exit code indicates invalid JSON.
 
-Feel free to contribute by submitting a **Pull Request (PR)** or opening an **Issue** to suggest improvements or report any bugs.
+## Contributing
 
-## 🎯 License
+Contributions are welcome. Please read `CONTRIBUTING.md` for details. Quick guidelines:
 
-This project is licensed under the **Apache License V2.0 License**.
+- Use the `gha-` prefix for new snippets.
+- Keep snippet bodies valid YAML where applicable.
+- Add clear descriptions and set snippet scope to `yaml` when relevant.
+- Update `README.md` when adding or changing public snippets.
 
----
+## Testing changes
 
-📢 **Follow GitHub Actions best practices to ensure optimal CI/CD performance!** 🚀
+- Run the `jq` JSON validation locally.
+- Open a branch and create a Pull Request — the repository CI will validate the snippets file.
+
+## License
+
+This project is licensed under the Apache License, Version 2.0. See the `LICENSE` file for details.
+
+## Feedback
+
+Open an issue or pull request with suggestions, fixes, or new snippets.
