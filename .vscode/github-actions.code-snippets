@@ -21,7 +21,7 @@
     "body": [
       "branding:",
       "  color: ${1|blue,green,orange,purple,red,yellow,gray-dark|}",
-      "  icon: ${2|alert,arrow-down-circle,arrow-right-circle,arrow-up-circle,bar-chart,bell,book,bookmark,briefcase,calendar,check-circle,check-square,chevron-down,chevron-left,chevron-right,chevron-up,clock,cloud,code,codesandbox,coffee,columns,command,cpu,credit-card,crosshair,disc,dollar-sign,download,edit,file,file-text,flag,folder,git-branch,git-commit,git-merge,git-pull-request,globe,grid,heart,help-circle,home,image,inbox,info,layout,life-buoy,link,list,lock,mail,map,menu,message-circle,message-square,minus-circle,minus-square,monitor,music,package,paperclip,pen-tool,percent,phone,pie-chart,play,plus-circle,plus-square,pocket,printer,radio,refresh-cloud,repeat,save,search,send,server,settings,shield,shopping-cart,shuffle,sidebar,sliders,smartphone,speaker,star,stop-circle,sun,tag,target,terminal,thumbs-down,thumbs-up,trash,triangle,truck,tv,umbrella,upload,user,users,video,watch,wifi,x-circle,x-square,zoom-in,zoom-out|}"
+      "  icon: ${2|activity,alert,check-circle,clock,code,download,eye,git-branch,heart,home,info,lock,mail,package,play,settings,star,terminal,user,x-circle|}"
     ],
     "description": "Insert GitHub Action branding with predefined color and icon options.",
     "scope": "yaml,github-actions-workflow"
