@@ -9,14 +9,20 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        id: checkout-repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Validate Snippet JSON
-        run: |
-          if ! jq empty .vscode/github-actions.code-snippets; then
-            echo "Invalid JSON in snippets file"
-            exit 1
-          fi
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '24'
+          package-manager-cache: false
+
+      - name: Validate snippets
+        id: validate-snippets
+        run: node .github/scripts/validate-snippets.mjs

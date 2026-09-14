@@ -26,6 +26,7 @@ Thank you for your interest in contributing to this repository! We welcome contr
    - Bodies are valid YAML where applicable.
 
 5. **Test Your Changes**:
+   - Run `node .github/scripts/validate-snippets.mjs`.
    - Install the snippets in your VS Code.
    - Test the snippets in a `.yml` file to ensure they work as expected.
 
@@ -53,6 +54,7 @@ Thank you for your interest in contributing to this repository! We welcome contr
 - **Prefixes**: Use the `gha-` prefix for all snippets to avoid conflicts.
 - **Scope**: Set the scope to `yaml,github-actions-workflow` for relevant snippets.
 - **Testing**: Test snippets in VS Code to confirm they expand correctly and include all necessary placeholders.
+- **Automated Validation**: Run `node .github/scripts/validate-snippets.mjs` before opening a pull request.
 
 ## Reporting Issues
 
