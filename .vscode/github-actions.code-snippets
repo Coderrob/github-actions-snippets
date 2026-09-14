@@ -1,27 +1,10 @@
-/*
- *
- * Copyright 2025 Robert Lindley
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
 {
   "GitHub Actions - Action - Branding": {
     "prefix": "gha-action-branding",
     "body": [
       "branding:",
-      "  color: ${1|blue,green,orange,purple,red,yellow,gray-dark|}",
-      "  icon: ${2|alert,arrow-down-circle,arrow-right-circle,arrow-up-circle,bar-chart,bell,book,bookmark,briefcase,calendar,check-circle,check-square,chevron-down,chevron-left,chevron-right,chevron-up,clock,cloud,code,codesandbox,coffee,columns,command,cpu,credit-card,crosshair,disc,dollar-sign,download,edit,file,file-text,flag,folder,git-branch,git-commit,git-merge,git-pull-request,globe,grid,heart,help-circle,home,image,inbox,info,layout,life-buoy,link,list,lock,mail,map,menu,message-circle,message-square,minus-circle,minus-square,monitor,music,package,paperclip,pen-tool,percent,phone,pie-chart,play,plus-circle,plus-square,pocket,printer,radio,refresh-cloud,repeat,save,search,send,server,settings,shield,shopping-cart,shuffle,sidebar,sliders,smartphone,speaker,star,stop-circle,sun,tag,target,terminal,thumbs-down,thumbs-up,trash,triangle,truck,tv,umbrella,upload,user,users,video,watch,wifi,x-circle,x-square,zoom-in,zoom-out|}"
+      "  color: ${1|white,black,yellow,blue,green,orange,red,purple,gray-dark|}",
+      "  icon: ${2|activity,airplay,alert-circle,alert-octagon,alert-triangle,align-center,align-justify,align-left,align-right,anchor,aperture,archive,arrow-down-circle,arrow-down-left,arrow-down-right,arrow-down,arrow-left-circle,arrow-left,arrow-right-circle,arrow-right,arrow-up-circle,arrow-up-left,arrow-up-right,arrow-up,at-sign,award,bar-chart-2,bar-chart,battery-charging,battery,bell-off,bell,bluetooth,bold,book-open,book,bookmark,box,briefcase,calendar,camera-off,camera,cast,check-circle,check-square,check,chevron-down,chevron-left,chevron-right,chevron-up,chevrons-down,chevrons-left,chevrons-right,chevrons-up,circle,clipboard,clock,cloud-drizzle,cloud-lightning,cloud-off,cloud-rain,cloud-snow,cloud,code,command,compass,copy,corner-down-left,corner-down-right,corner-left-down,corner-left-up,corner-right-down,corner-right-up,corner-up-left,corner-up-right,cpu,credit-card,crop,crosshair,database,delete,disc,dollar-sign,download-cloud,download,droplet,edit-2,edit-3,edit,external-link,eye-off,eye,fast-forward,feather,file-minus,file-plus,file-text,file,film,filter,flag,folder-minus,folder-plus,folder,gift,git-branch,git-commit,git-merge,git-pull-request,globe,grid,hard-drive,hash,headphones,heart,help-circle,home,image,inbox,info,italic,layers,layout,life-buoy,link-2,link,list,loader,lock,log-in,log-out,mail,map-pin,map,maximize-2,maximize,menu,message-circle,message-square,mic-off,mic,minimize-2,minimize,minus-circle,minus-square,minus,monitor,moon,more-horizontal,more-vertical,move,music,navigation-2,navigation,octagon,package,paperclip,pause-circle,pause,percent,phone-call,phone-forwarded,phone-incoming,phone-missed,phone-off,phone-outgoing,phone,pie-chart,play-circle,play,plus-circle,plus-square,plus,pocket,power,printer,radio,refresh-ccw,refresh-cw,repeat,rewind,rotate-ccw,rotate-cw,rss,save,scissors,search,send,server,settings,share-2,share,shield-off,shield,shopping-bag,shopping-cart,shuffle,sidebar,skip-back,skip-forward,slash,sliders,smartphone,speaker,square,star,stop-circle,sun,sunrise,sunset,table,tablet,tag,target,terminal,thermometer,thumbs-down,thumbs-up,toggle-left,toggle-right,trash-2,trash,trending-down,trending-up,triangle,truck,tv,type,umbrella,underline,unlock,upload-cloud,upload,user-check,user-minus,user-plus,user-x,user,users,video-off,video,voicemail,volume-1,volume-2,volume-x,volume,watch,wifi-off,wifi,wind,x-circle,x-square,x,zap-off,zap,zoom-in,zoom-out|}"
     ],
     "description": "Insert GitHub Action branding with predefined color and icon options.",
     "scope": "yaml,github-actions-workflow"
@@ -29,16 +12,57 @@
   "GitHub Actions - Action - Step Env": {
     "prefix": "gha-action-step-env",
     "body": [
-      "    env:",
-      "      GITHUB_ACTOR: ${{ github.actor }}",
-      "      GITHUB_REF: ${{ github.ref }}",
-      "      GITHUB_REPOSITORY: ${{ github.repository }}",
-      "      GITHUB_SHA: ${{ github.sha }}",
-      "      GITHUB_WORKSPACE: ${{ github.workspace }}",
-      "      RUNNER_ARCH: ${{ runner.arch }}",
-      "      RUNNER_OS: ${{ runner.os }}"
+      "        env:",
+      "          GH_ACTOR: ${{ github.actor }}",
+      "          GH_REF: ${{ github.ref }}",
+      "          GH_REPOSITORY: ${{ github.repository }}",
+      "          GH_SHA: ${{ github.sha }}",
+      "          WORKSPACE_PATH: ${{ github.workspace }}",
+      "          RUNNER_ARCHITECTURE: ${{ runner.arch }}",
+      "          RUNNER_OPERATING_SYSTEM: ${{ runner.os }}"
     ],
-    "description": "Insert commonly used GitHub Actions step environment variables.",
+    "description": "Map common GitHub contexts to custom step environment variables.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Action - Input": {
+    "prefix": "gha-action-input",
+    "body": [
+      "  ${1:input-name}:",
+      "    description: ${2:Describe the input}",
+      "    required: ${3|false,true|}",
+      "    default: ${4:value}"
+    ],
+    "description": "Declare an input inside an action metadata inputs map.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Action - Output": {
+    "prefix": "gha-action-output",
+    "body": [
+      "  ${1:output-name}:",
+      "    description: ${2:Describe the output}"
+    ],
+    "description": "Declare an output for a JavaScript or Docker action.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Composite Action - Output": {
+    "prefix": "gha-composite-action-output",
+    "body": [
+      "  ${1:output-name}:",
+      "    description: ${2:Describe the output}",
+      "    value: ${{ steps.${3:step-id}.outputs.${4:result} }}"
+    ],
+    "description": "Declare a composite-action output mapped from a step output.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Node Action - Lifecycle Hooks": {
+    "prefix": "gha-node-action-hooks",
+    "body": [
+      "  pre: ${1:./dist/setup.js}",
+      "  pre-if: ${2:runner.os == 'Linux'}",
+      "  post: ${3:./dist/cleanup.js}",
+      "  post-if: ${4:always()}"
+    ],
+    "description": "Add conditional pre and post lifecycle scripts to a JavaScript action runs map.",
     "scope": "yaml,github-actions-workflow"
   },
   "GitHub Actions - Composite Action": {
@@ -51,7 +75,7 @@
       "inputs:",
       "  ${4:input_name}:",
       "    description: ${5:Input description}",
-      "    required: ${6|true,false|}",
+      "    required: ${6|false,true|}",
       "    default: ${7:default_value}",
       "",
       "outputs:",
@@ -62,14 +86,12 @@
       "runs:",
       "  using: composite",
       "  steps:",
-      "    - name: Checkout Repository",
-      "      id: checkout-repository",
-      "      uses: actions/checkout@v4",
-      "",
-      "    - name: ${11:Your Step Name}",
-      "      id: ${12:your-step-id}",
-      "      run: ${13:echo 'Hello World'}",
-      "      shell: ${14|bash,pwsh,sh|}",
+      "    - name: ${11:Produce output}",
+      "      id: $10",
+      "      shell: ${12|bash,pwsh,sh|}",
+      "      env:",
+      "        INPUT_VALUE: ${{ inputs.$4 }}",
+      "      run: echo \"result=\\$INPUT_VALUE\" >> \"\\$GITHUB_OUTPUT\"",
       ""
     ],
     "description": "Boilerplate template for a GitHub Composite Action.",
@@ -93,9 +115,9 @@
     "body": [
       "    - name: ${1:Use Existing Action}",
       "      id: ${2:step_id}",
-      "      uses: ${3:actions/checkout@v4}",
+      "      uses: ${3:actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1} # ${4:v7.0.1}",
       "      with:",
-      "        ${4:input_name}: ${5:input_value}"
+      "        ${5:input_name}: ${6:input_value}"
     ],
     "description": "Insert a 'uses' step for a GitHub Composite Action.",
     "scope": "yaml,github-actions-workflow"
@@ -110,7 +132,7 @@
       "inputs:",
       "  ${4:input_name}:",
       "    description: ${5:Input description}",
-      "    required: ${6|true,false|}",
+      "    required: ${6|false,true|}",
       "    default: ${7:default_value}",
       "",
       "outputs:",
@@ -121,7 +143,7 @@
       "  using: docker",
       "  image: ${10:Dockerfile}",
       "  args:",
-      "    - ${11:--arg value}"
+      "    - ${{ inputs.$4 }}"
     ],
     "description": "Insert a template for a Docker-based GitHub Action.",
     "scope": "yaml,github-actions-workflow"
@@ -136,7 +158,7 @@
       "inputs:",
       "  ${4:input_name}:",
       "    description: ${5:Input description}",
-      "    required: ${6|true,false|}",
+      "    required: ${6|false,true|}",
       "    default: ${7:default_value}",
       "",
       "outputs:",
@@ -144,10 +166,10 @@
       "    description: ${9:Output description}",
       "",
       "runs:",
-      "  using: node20",
+      "  using: node24",
       "  main: ${10:./dist/index.js}"
     ],
-    "description": "Insert a template for a Node.js 20.x GitHub Action.",
+    "description": "Insert a template for a Node.js 24 GitHub Action.",
     "scope": "yaml,github-actions-workflow"
   },
   "GitHub Actions - Workflow": {
@@ -160,43 +182,32 @@
       "  - pull_request",
       "",
       "jobs:",
-      "  ${2:build}:",
-      "    runs-on: ${3|ubuntu-latest,windows-latest,macos-latest|}",
+      "  ${2:job_name}:",
+      "    name: ${3:Job name}",
+      "    runs-on: ${4|ubuntu-latest,windows-latest,macos-latest|}",
+      "    timeout-minutes: ${5:30}",
+      "    permissions:",
+      "      contents: read",
       "    steps:",
-      "      - name: Checkout Repository",
-      "        id: checkout-repository",
-      "        uses: actions/checkout@v4",
-      "",
-      "      - name: Setup Node.js",
-      "        id: setup-node",
-      "        uses: actions/setup-node@v4",
-      "        with:",
-      "          node-version: '${4|18,20|}'",
-      "",
-      "      - name: Install Dependencies",
-      "        id: install-dependencies",
-      "        run: npm install",
-      "",
-      "      - name: Run Tests",
-      "        id: run-tests",
-      "        run: npm test",
+      "      - name: ${6:Run command}",
+      "        run: ${7:echo 'Hello from GitHub Actions'}",
       ""
     ],
-    "description": "Boilerplate for a GitHub Actions workflow.",
+    "description": "Language-neutral boilerplate for a GitHub Actions workflow.",
     "scope": "yaml,github-actions-workflow"
   },
   "GitHub Actions - Workflow Job": {
     "prefix": "gha-workflow-job",
     "body": [
-      "jobs:",
       "  ${1:job_name}:",
-      "    runs-on: ${2|ubuntu-latest,windows-latest,macos-latest|}",
+      "    name: ${2:Job name}",
+      "    runs-on: ${3|ubuntu-latest,windows-latest,macos-latest|}",
+      "    timeout-minutes: ${4:30}",
       "    steps:",
-      "      - name: Print Job Status",
-      "        id: print-job-status",
-      "        run: echo \"Job Status: ${{ job.status }}\""
+      "      - name: ${5:Run command}",
+      "        run: ${6:echo 'Hello from the job'}"
     ],
-    "description": "Insert a GitHub Actions workflow job with status reference.",
+    "description": "Insert a job under an existing GitHub Actions jobs map.",
     "scope": "yaml,github-actions-workflow"
   },
   "GitHub Actions - Workflow Job 'run' Step": {
@@ -206,8 +217,11 @@
       "        id: ${2:step_id}",
       "        if: ${{ ${3:true} }}",
       "        shell: ${4|bash,pwsh,sh|}",
+      "        working-directory: ${5:.}",
+      "        env:",
+      "          ${6:ENV_NAME}: ${7:value}",
       "        run: |",
-      "          ${5:echo 'Hello World'}"
+      "          ${8:echo 'Hello World'}"
     ],
     "description": "Insert a 'run' step for a GitHub Actions workflow job.",
     "scope": "yaml,github-actions-workflow"
@@ -217,11 +231,430 @@
     "body": [
       "      - name: ${1:Use Existing Action}",
       "        id: ${2:step_id}",
-      "        uses: ${3:actions/checkout@v4}",
+      "        uses: ${3:actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1} # ${4:v7.0.1}",
       "        with:",
-      "          ${4:input_name}: ${5:input_value}"
+      "          ${5:input_name}: ${6:input_value}"
     ],
     "description": "Insert a 'uses' step for a GitHub Actions workflow job.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job 'uses' Step - SHA Pinned": {
+    "prefix": "gha-workflow-job-step-uses-pinned",
+    "body": [
+      "      - name: ${1:Use SHA-pinned action}",
+      "        id: ${2:step_id}",
+      "        uses: ${3:actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1} # ${4:v7.0.1}",
+      "        with:",
+      "          ${5:input_name}: ${6:input_value}"
+    ],
+    "description": "Use an action pinned to an immutable full-length commit SHA.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Node.js CI Workflow": {
+    "prefix": "gha-workflow-node-ci",
+    "body": [
+      "name: ${1:Node.js CI}",
+      "",
+      "on:",
+      "  - push",
+      "  - pull_request",
+      "",
+      "concurrency:",
+      "  group: ${{ github.workflow }}-${{ github.ref }}",
+      "  cancel-in-progress: true",
+      "",
+      "jobs:",
+      "  test:",
+      "    runs-on: ${2|ubuntu-latest,windows-latest,macos-latest|}",
+      "    timeout-minutes: ${3:30}",
+      "    permissions:",
+      "      contents: read",
+      "    steps:",
+      "      - name: Checkout repository",
+      "        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1",
+      "",
+      "      - name: Set up Node.js",
+      "        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0",
+      "        with:",
+      "          node-version: '${4|24,22,26|}'",
+      "          cache: npm",
+      "",
+      "      - name: Install dependencies",
+      "        run: npm ci",
+      "",
+      "      - name: Run tests",
+      "        run: npm test"
+    ],
+    "description": "Complete Node.js CI workflow with caching and concurrency.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Trigger - Manual Dispatch": {
+    "prefix": "gha-workflow-trigger-dispatch",
+    "body": [
+      "  workflow_dispatch:",
+      "    inputs:",
+      "      ${1:environment}:",
+      "        description: ${2:Environment to target}",
+      "        required: ${3|true,false|}",
+      "        type: choice",
+      "        options:",
+      "          - ${4:staging}",
+      "          - ${5:production}"
+    ],
+    "description": "Insert a manual-dispatch event with a choice input under an existing on map.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Trigger - Schedule": {
+    "prefix": "gha-workflow-trigger-schedule",
+    "body": [
+      "  schedule:",
+      "    - cron: '${1:0 6 * * 1-5}'",
+      "      timezone: '${2:Etc/UTC}'"
+    ],
+    "description": "Insert a scheduled event under an existing on map.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Trigger - Push and Pull Request Filters": {
+    "prefix": "gha-workflow-trigger-push-pr",
+    "body": [
+      "  push:",
+      "    branches:",
+      "      - ${1:main}",
+      "    paths:",
+      "      - '${2:**}'",
+      "  pull_request:",
+      "    branches:",
+      "      - $1",
+      "    paths:",
+      "      - '$2'"
+    ],
+    "description": "Insert push and pull-request events with linked branch and path filters.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job Permissions": {
+    "prefix": "gha-workflow-permissions",
+    "body": [
+      "    permissions:",
+      "      contents: read",
+      "      ${1:issues}: ${2|read,write,none|}"
+    ],
+    "description": "Insert a least-privilege GITHUB_TOKEN permissions map inside a job.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job Permissions - OIDC": {
+    "prefix": "gha-workflow-permissions-oidc",
+    "body": [
+      "    permissions:",
+      "      contents: read",
+      "      id-token: write"
+    ],
+    "description": "Grant a job read-only repository access and permission to request an OIDC token.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Concurrency": {
+    "prefix": "gha-workflow-concurrency",
+    "body": [
+      "concurrency:",
+      "  group: ${{ github.workflow }}-${{ github.ref }}",
+      "  cancel-in-progress: ${1|true,false|}"
+    ],
+    "description": "Insert workflow concurrency keyed by workflow and ref.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Run Defaults": {
+    "prefix": "gha-workflow-defaults-run",
+    "body": [
+      "defaults:",
+      "  run:",
+      "    shell: ${1|bash,pwsh,sh|}",
+      "    working-directory: ${2:.}"
+    ],
+    "description": "Set the default shell and working directory for run steps.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Reusable Workflow": {
+    "prefix": "gha-reusable-workflow",
+    "body": [
+      "name: ${1:Reusable workflow}",
+      "",
+      "on:",
+      "  workflow_call:",
+      "    inputs:",
+      "      ${2:config-path}:",
+      "        description: ${3:Configuration file path}",
+      "        required: ${4|true,false|}",
+      "        type: string",
+      "    secrets:",
+      "      ${5:token}:",
+      "        description: ${6:Token used by the workflow}",
+      "        required: ${7|true,false|}",
+      "",
+      "jobs:",
+      "  ${8:run}:",
+      "    runs-on: ${9|ubuntu-latest,windows-latest,macos-latest|}",
+      "    permissions:",
+      "      contents: read",
+      "    steps:",
+      "      - name: ${10:Run reusable task}",
+      "        env:",
+      "          CONFIG_PATH: ${{ inputs.$2 }}",
+      "          ACCESS_TOKEN: ${{ secrets.$5 }}",
+      "        run: ${11:echo \"Using configuration at \\$CONFIG_PATH\"}"
+    ],
+    "description": "Define a reusable workflow with a typed input and secret.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Reusable Workflow - Output": {
+    "prefix": "gha-reusable-workflow-output",
+    "body": [
+      "    outputs:",
+      "      ${1:workflow-output}:",
+      "        description: ${2:Describe the workflow output}",
+      "        value: ${{ jobs.${3:producer}.outputs.${4:result} }}"
+    ],
+    "description": "Declare a workflow_call output mapped from a job output.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job - Call Reusable Workflow": {
+    "prefix": "gha-workflow-job-call",
+    "body": [
+      "  ${1:call-workflow}:",
+      "    uses: ${2:./.github/workflows/reusable.yml}",
+      "    with:",
+      "      ${3:config-path}: ${4:.github/config.yml}",
+      "    secrets:",
+      "      ${5:token}: ${{ secrets.${6:WORKFLOW_TOKEN} }}"
+    ],
+    "description": "Insert a job that calls a reusable workflow with an input and secret.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job - Dependency": {
+    "prefix": "gha-workflow-job-needs",
+    "body": [
+      "  ${1:dependent-job}:",
+      "    needs: ${2:prerequisite-job}",
+      "    if: ${{ success() }}",
+      "    runs-on: ${3|ubuntu-latest,windows-latest,macos-latest|}",
+      "    steps:",
+      "      - name: ${4:Run dependent task}",
+      "        run: ${5:echo 'Prerequisite completed'}"
+    ],
+    "description": "Insert a job that runs after a prerequisite job succeeds.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job - Self-Hosted Runner": {
+    "prefix": "gha-workflow-job-self-hosted",
+    "body": [
+      "  ${1:self-hosted-job}:",
+      "    runs-on: [self-hosted, ${2|linux,windows,macOS|}, ${3|x64,ARM64,ARM|}]",
+      "    timeout-minutes: ${4:30}",
+      "    steps:",
+      "      - name: ${5:Run task}",
+      "        run: ${6:echo 'Hello from a self-hosted runner'}"
+    ],
+    "description": "Insert a job routed to a self-hosted runner by OS and architecture labels.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job - Container": {
+    "prefix": "gha-workflow-job-container",
+    "body": [
+      "  ${1:container-job}:",
+      "    runs-on: ubuntu-latest",
+      "    container:",
+      "      image: ${2:node:24}",
+      "      options: ${3:--cpus 2}",
+      "    steps:",
+      "      - name: ${4:Run task}",
+      "        run: ${5:node --version}"
+    ],
+    "description": "Insert an Ubuntu job whose run steps execute inside a container.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job - Node.js Matrix": {
+    "prefix": "gha-workflow-job-matrix-node",
+    "body": [
+      "  ${1:test}:",
+      "    strategy:",
+      "      fail-fast: ${2|false,true|}",
+      "      matrix:",
+      "        os: [ubuntu-latest, windows-latest, macos-latest]",
+      "        node-version: [22, 24, 26]",
+      "    runs-on: ${{ matrix.os }}",
+      "    steps:",
+      "      - name: Checkout repository",
+      "        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1",
+      "      - name: Set up Node.js",
+      "        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0",
+      "        with:",
+      "          node-version: ${{ matrix.node-version }}",
+      "          cache: npm",
+      "      - run: npm ci",
+      "      - run: npm test"
+    ],
+    "description": "Insert a Node.js test job using operating-system and version matrices.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Jobs - Pass Output": {
+    "prefix": "gha-workflow-jobs-output",
+    "body": [
+      "jobs:",
+      "  ${1:producer}:",
+      "    runs-on: ubuntu-latest",
+      "    outputs:",
+      "      result: ${{ steps.${2:produce}.outputs.result }}",
+      "    steps:",
+      "      - name: Produce output",
+      "        id: $2",
+      "        run: echo \"result=${3:value}\" >> \"\\$GITHUB_OUTPUT\"",
+      "",
+      "  ${4:consumer}:",
+      "    needs: $1",
+      "    runs-on: ubuntu-latest",
+      "    steps:",
+      "      - name: Consume output",
+      "        env:",
+      "          RESULT: ${{ needs.$1.outputs.result }}",
+      "        run: echo \"Result is \\$RESULT\""
+    ],
+    "description": "Insert two jobs that pass a value through a job output.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job - Deployment Environment": {
+    "prefix": "gha-workflow-job-environment",
+    "body": [
+      "  ${1:deploy}:",
+      "    needs: ${2:build}",
+      "    runs-on: ubuntu-latest",
+      "    environment:",
+      "      name: ${3:production}",
+      "      url: ${4:https://example.com}",
+      "    concurrency:",
+      "      group: $3",
+      "      cancel-in-progress: false",
+      "    permissions:",
+      "      contents: read",
+      "    steps:",
+      "      - name: ${5:Deploy}",
+      "        run: ${6:echo 'Deploy application'}"
+    ],
+    "description": "Insert a deployment job with an environment and concurrency control.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Workflow Job - Service Container": {
+    "prefix": "gha-workflow-job-service",
+    "body": [
+      "  ${1:integration-test}:",
+      "    runs-on: ubuntu-latest",
+      "    services:",
+      "      ${2:postgres}:",
+      "        image: ${3:postgres:18}",
+      "        env:",
+      "          ${4:POSTGRES_PASSWORD}: ${5:postgres}",
+      "        ports:",
+      "          - ${6:5432:5432}",
+      "        options: >-",
+      "          --health-cmd ${7:pg_isready}",
+      "          --health-interval 10s",
+      "          --health-timeout 5s",
+      "          --health-retries 5",
+      "    steps:",
+      "      - name: ${8:Run integration tests}",
+      "        run: ${9:echo 'Run integration tests'}"
+    ],
+    "description": "Insert an Ubuntu job with a health-checked service container.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Step - Set Output": {
+    "prefix": "gha-workflow-step-output",
+    "body": [
+      "      - name: ${1:Set output}",
+      "        id: ${2:output-step}",
+      "        run: echo \"${3:result}=${4:value}\" >> \"\\$GITHUB_OUTPUT\""
+    ],
+    "description": "Set a step output through the GITHUB_OUTPUT environment file.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Step - Set Environment Variable": {
+    "prefix": "gha-workflow-step-env",
+    "body": [
+      "      - name: ${1:Set environment variable}",
+      "        run: echo \"${2:VARIABLE_NAME}=${3:value}\" >> \"\\$GITHUB_ENV\""
+    ],
+    "description": "Set an environment variable for later steps through GITHUB_ENV.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Step - Job Summary": {
+    "prefix": "gha-workflow-step-summary",
+    "body": [
+      "      - name: ${1:Add job summary}",
+      "        run: echo \"${2:### Workflow summary}\" >> \"\\$GITHUB_STEP_SUMMARY\""
+    ],
+    "description": "Append Markdown content to the workflow job summary.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Step - Checkout": {
+    "prefix": "gha-workflow-step-checkout",
+    "body": [
+      "      - name: Checkout repository",
+      "        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1",
+      "        with:",
+      "          fetch-depth: ${1:1}",
+      "          persist-credentials: ${2|false,true|}"
+    ],
+    "description": "Check out the repository with explicit history and credential settings.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Step - Setup Node.js": {
+    "prefix": "gha-workflow-step-setup-node",
+    "body": [
+      "      - name: Set up Node.js",
+      "        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0",
+      "        with:",
+      "          node-version: '${1|24,22,26|}'",
+      "          cache: ${2|npm,yarn,pnpm|}",
+      "          cache-dependency-path: ${3:package-lock.json}"
+    ],
+    "description": "Set up Node.js with package-manager dependency caching.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Step - Cache": {
+    "prefix": "gha-workflow-step-cache",
+    "body": [
+      "      - name: Cache ${1:dependencies}",
+      "        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0",
+      "        with:",
+      "          path: ${2:~/.npm}",
+      "          key: ${{ runner.os }}-${3:npm}-${{ hashFiles('${4:**/package-lock.json}') }}",
+      "          restore-keys: |",
+      "            ${{ runner.os }}-$3-"
+    ],
+    "description": "Cache dependencies or build outputs using a content-based key.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Step - Upload Artifact": {
+    "prefix": "gha-workflow-step-upload-artifact",
+    "body": [
+      "      - name: Upload ${1:artifact}",
+      "        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1",
+      "        with:",
+      "          name: ${2:artifact-name}",
+      "          path: ${3:path/to/artifact}",
+      "          if-no-files-found: ${4|error,warn,ignore|}",
+      "          retention-days: ${5:7}"
+    ],
+    "description": "Upload workflow files as a named artifact.",
+    "scope": "yaml,github-actions-workflow"
+  },
+  "GitHub Actions - Step - Download Artifact": {
+    "prefix": "gha-workflow-step-download-artifact",
+    "body": [
+      "      - name: Download ${1:artifact}",
+      "        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1",
+      "        with:",
+      "          name: ${2:artifact-name}",
+      "          path: ${3:path/to/destination}"
+    ],
+    "description": "Download a named artifact from the current workflow run.",
     "scope": "yaml,github-actions-workflow"
   }
 }
